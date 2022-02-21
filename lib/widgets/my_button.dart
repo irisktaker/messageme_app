@@ -4,7 +4,7 @@ class MyButton extends StatelessWidget {
   
   final Color color;
   final String title;
-  final Function()? onPressed;
+  final VoidCallback onPressed;
 
   MyButton({
     required this.color,

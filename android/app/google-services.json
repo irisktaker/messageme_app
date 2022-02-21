@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "188250597715",
+    "project_id": "messageme-app-bdb96",
+    "storage_bucket": "messageme-app-bdb96.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:188250597715:android:1f732a2ce292eaaf64d9a6",
+        "android_client_info": {
+          "package_name": "com.naser.messageme_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "188250597715-71pkvngctc3ecsef5jhvkqnt6u740ui6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMKpDV5IAJvh_cI00QLKBFK11-PwyAXb4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "188250597715-71pkvngctc3ecsef5jhvkqnt6u740ui6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

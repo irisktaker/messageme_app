@@ -4,6 +4,8 @@ import '/widgets/my_button.dart';
 import '../widgets/custom_text_field.dart';
 
 class SignInScreen extends StatefulWidget {
+  static const String screenRoute = 'sign_in_screen';
+
   const SignInScreen({Key? key}) : super(key: key);
 
   @override
