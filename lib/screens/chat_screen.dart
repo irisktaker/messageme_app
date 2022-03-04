@@ -56,6 +56,8 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
             onPressed: () {
               // add logout function
+              _auth.signOut();
+              Navigator.pop(context);
             },
             icon: const Icon(
               Icons.close,
