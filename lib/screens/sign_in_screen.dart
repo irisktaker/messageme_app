@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:messageme_app/screens/chat_screen.dart';
 
 import '/widgets/my_button.dart';
 import '../widgets/custom_text_field.dart';
@@ -13,6 +15,11 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  final _auth = FirebaseAuth.instance;
+
+  late String email;
+  late String password;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -35,13 +42,17 @@ class _SignInScreenState extends State<SignInScreen> {
               const SizedBox(height: 50),
               CustomTextField(
                 title: "Enter your email",
-                onChanged: (value) {},
+                onChanged: (value) {
+                  email = value;
+                },
                 keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 10),
               CustomTextField(
                 title: "Enter your password",
-                onChanged: (value) {},
+                onChanged: (value) {
+                  password = value;
+                },
                 obscureText: true,
                 keyboardType: TextInputType.visiblePassword,
               ),
@@ -49,7 +60,17 @@ class _SignInScreenState extends State<SignInScreen> {
               MyButton(
                 color: Colors.yellow[900]!,
                 title: 'register',
-                onPressed: () {},
+                onPressed: () async {
+                  try {
+                    final user = await _auth.signInWithEmailAndPassword(
+                        email: email, password: password);
+                    if (user != null) {
+                      Navigator.pushNamed(context, ChatScreen.screenRoute);
+                    }
+                  } catch (e) {
+                    print(e);
+                  }
+                },
               ),
             ],
           ),
