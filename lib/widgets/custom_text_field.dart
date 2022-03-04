@@ -2,16 +2,24 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
   final String title;
+  void Function(String)? onChanged;
+  bool obscureText;
+  TextInputType keyboardType;
 
-  CustomTextField({
+  CustomTextField({Key? key, 
     required this.title,
-  });
+    required this.onChanged,
+    this.obscureText = false,
+    required this.keyboardType,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       textAlign: TextAlign.center,
-      onChanged: ((value) {}),
+      obscureText: obscureText,
+      keyboardType: keyboardType,
+      onChanged: onChanged,
       decoration: InputDecoration(
         hintText: title,
         contentPadding: const EdgeInsets.symmetric(
