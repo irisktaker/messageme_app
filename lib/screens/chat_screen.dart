@@ -37,7 +37,29 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  // saving data in firebase
+  // Listening data from firestore
+  // #1
+  // this method will get the data and give it to use
+  // each time we will reload the screen
+  // and that's not right
+  void getMessages() async {
+    final messages = await _firestore.collection('messages').get();
+    for (var message in messages.docs) {
+      print(message.data());
+    }
+  }
+
+  // #2
+  // we will use Streams to push the data dynamically
+  // push not get
+  void messagesStreams() async {
+    // snapshots is a copy of the collection data
+    await for (var snapshot in _firestore.collection('messages').snapshots()) {
+      for (var message in snapshot.docs) {
+        print(message.data());
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
