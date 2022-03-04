@@ -45,24 +45,24 @@ class _ChatScreenState extends State<ChatScreen> {
   // this method will get the data and give it to use
   // each time we will reload the screen
   // and that's not right
-  void getMessages() async {
-    final messages = await _firestore.collection('messages').get();
-    for (var message in messages.docs) {
-      print(message.data());
-    }
-  }
+  // void getMessages() async {
+  //   final messages = await _firestore.collection('messages').get();
+  //   for (var message in messages.docs) {
+  //     print(message.data());
+  //   }
+  // }
 
   // #2
   // we will use Streams to push the data dynamically
   // push not get
-  void messagesStreams() async {
-    // snapshots is a copy of the collection data
-    await for (var snapshot in _firestore.collection('messages').snapshots()) {
-      for (var message in snapshot.docs) {
-        print(message.data());
-      }
-    }
-  }
+  // void messagesStreams() async {
+  //   // snapshots is a copy of the collection data
+  //   await for (var snapshot in _firestore.collection('messages').snapshots()) {
+  //     for (var message in snapshot.docs) {
+  //       print(message.data());
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -139,6 +139,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         _firestore.collection('messages').add({
                           'text': messageText,
                           'sender': signedInUser.email,
+                          'time': FieldValue.serverTimestamp(),
                         });
                       },
                       child: Text(
@@ -170,7 +171,7 @@ class MessageStreamBuilder extends StatelessWidget {
         // StreamBuilder Widget
 
         StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collection('messages').snapshots(),
+      stream: _firestore.collection('messages').orderBy('time').snapshots(),
       builder: (context, snapshots) {
         List<MessageLine> messageWidgets = [];
 
@@ -182,7 +183,7 @@ class MessageStreamBuilder extends StatelessWidget {
           );
         }
 
-        final messages = snapshots.data!.docs;
+        final messages = snapshots.data!.docs.reversed;
         for (var message in messages) {
           final messageText = message.get('text');
           final messageSender = message.get('sender');
@@ -198,6 +199,7 @@ class MessageStreamBuilder extends StatelessWidget {
 
         return Expanded(
           child: ListView(
+            reverse: true,
             padding: const EdgeInsets.symmetric(
               horizontal: 10,
               vertical: 20,
